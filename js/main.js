@@ -77,3 +77,20 @@
     });
 })(jQuery);
 
+// Function to trigger download
+function downloadResume() {
+    // Create an anchor element
+    const link = document.createElement('a');
+    // Set the href attribute to the path of your resume PDF
+    link.href = 'Susan_Achiech_Resume.pdf';
+    // Set the download attribute to specify the filename
+    link.download = 'Susan_Achiech_Resume.pdf';
+    // Append the anchor element to the body
+    document.body.appendChild(link);
+    // Trigger a click event on the anchor element
+    link.click();
+    // Remove the anchor element from the body
+    document.body.removeChild(link);
+
+}
+
