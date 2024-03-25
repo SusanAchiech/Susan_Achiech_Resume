@@ -87,10 +87,10 @@
     const link = document.createElement('a');
   
     // Set the href attribute to the path of your resume PDF
-    link.href = 'https://susanachiech.github.io/Susan_Achiech_Resume/';
+    link.href = 'https://susanachiech.github.io/Susan_Achiech_Resume/Susan_Achiech_Resume.pdf';
   
     // Set the download attribute to specify the filename
-    link.download = 'https://susanachiech.github.io/Susan_Achiech_Resume/';
+    link.download = 'https://susanachiech.github.io/Susan_Achiech_Resume/Susan_Achiech_Resume.pdf';
   
     // Append the anchor element to the body
     document.body.appendChild(link);
