@@ -1,103 +1,89 @@
-(function ($) {
+$(document).ready(function($) {
     "use strict";
-  
+
     // Smooth scrolling on the navbar links
-    $(".navbar-nav a").on('click', function (event) {
-      if (this.hash !== "") {
-        event.preventDefault();
-        $('html, body').animate({
-          scrollTop: $(this.hash).offset().top - 30
-        }, 1500, 'easeInOutExpo');
-        if ($(this).parents('.navbar-nav').length) {
-          $('.navbar-nav .active').removeClass('active');
-          $(this).closest('a').addClass('active');
+    $(".navbar-nav a").on('click', function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            $('html, body').animate({
+                scrollTop: $(this.hash).offset().top - 30
+            }, 1500, 'easeInOutExpo');
+            if ($(this).parents('.navbar-nav').length) {
+                $('.navbar-nav .active').removeClass('active');
+                $(this).closest('a').addClass('active');
+            }
         }
-      }
     });
-  
+
     // Typed Initiate
     if ($('.header h2').length == 1) {
-      var typed_strings = $('.header .typed-text').text();
-      var typed = new Typed('.header h2', {
-        strings: typed_strings.split(', '),
-        typeSpeed: 100,
-        backSpeed: 20,
-        smartBackspace: false,
-        loop: true
-      });
+        var typed_strings = $('.header .typed-text').text();
+        var typed = new Typed('.header h2', {
+            strings: typed_strings.split(', '),
+            typeSpeed: 100,
+            backSpeed: 20,
+            smartBackspace: false,
+            loop: true
+        });
     }
-  
+
     // Skills
-    $('.skills').waypoint(function () {
-      $('.progress .progress-bar').each(function () {
-        $(this).css("width", $(this).attr("aria-valuenow") + '%');
-      });
-    }, {
-      offset: '80%'
-    });
-  
-    // Porfolio isotope and filter
+    $('.skills').waypoint(function() {
+        $('.progress .progress-bar').each(function() {
+            $(this).css("width", $(this).attr("aria-valuenow") + '%');
+        });
+    }, {offset: '80%'});
+
+    // Portfolio isotope and filter
     var portfolioIsotope = $('.portfolio-container').isotope({
-      itemSelector: '.portfolio-item',
-      layoutMode: 'fitRows'
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
     });
-    $('#portfolio-flters li').on('click', function () {
-      $("#portfolio-flters li").removeClass('filter-active');
-      $(this).addClass('filter-active');
-      portfolioIsotope.isotope({
-        filter: $(this).data('filter')
-      });
+    $('#portfolio-flters li').on('click', function() {
+        $("#portfolio-flters li").removeClass('filter-active');
+        $(this).addClass('filter-active');
+        portfolioIsotope.isotope({filter: $(this).data('filter')});
     });
-  
+
     // Review slider
     $('.review-slider').slick({
-      autoplay: true,
-      dots: false,
-      infinite: true,
-      slidesToShow: 1,
-      slidesToScroll: 1
+        autoplay: true,
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1
     });
-  
+
     // Back to top button
-    $(window).scroll(function () {
-      if ($(this).scrollTop() > 100) {
-        $('.back-to-top').fadeIn('slow');
-      } else {
-        $('.back-to-top').fadeOut('slow');
-      }
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 100) {
+            $('.back-to-top').fadeIn('slow');
+        } else {
+            $('.back-to-top').fadeOut('slow');
+        }
     });
-    $('.back-to-top').click(function () {
-      $('html, body').animate({
-        scrollTop: 0
-      }, 1500, 'easeInOutExpo');
-      return false;
+    $('.back-to-top').click(function() {
+        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        return false;
     });
-  
+
     // Download resume function
-    $('#resumeDownload').on('click', function (e) {
-      e.preventDefault();
-      downloadResume();
+    $('#resumeDownload').on('click', function(e) {
+        e.preventDefault();
+        downloadResume();
     });
-  
-  })(jQuery);
-  
-  // Function to trigger download
-  function downloadResume() {
-    // Create an anchor element
-    const link = document.createElement('a');
-  
-    // Set the href attribute to the path of your resume PDF
-    link.href = 'https://susanachiech.github.io/Susan_Achiech_Resume/';
-  
-    // Set the download attribute to specify the filename
-    link.download = 'https://susanachiech.github.io/Susan_Achiech_Resume/';
-  
-    // Append the anchor element to the body
-    document.body.appendChild(link);
-  
-    // Trigger a click event on the anchor element
-    link.click();
-  
-    // Remove the anchor element from the body
-    document.body.removeChild(link);
-  }
+});
+
+// Function to trigger download
+function downloadResume() {
+    // Configure the options for html2pdf
+    const options = {
+        filename: 'Susan_Achiech_Resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // Use html2pdf to convert the webpage to a PDF
+    html2pdf().from(document.body).set(options).save();
+}
