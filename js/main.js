@@ -68,10 +68,19 @@ $(document).ready(function($) {
     });
 
     // Download resume function
-    $('#resumeDownload').on('click', function(e) {
+    /*$('#resumeDownload').on('click', function(e) {
         e.preventDefault();
         downloadResume();
-    });
+    });*/
+
+    //Download Resume Functionality
+
+document.getElementById("resumeDownload").addEventListener("click", function() {
+    html2pdf()
+        .from(document.body)
+        .save("resume.pdf");
+});
+
 });
 
 // Function to trigger download
