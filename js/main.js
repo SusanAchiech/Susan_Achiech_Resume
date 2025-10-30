@@ -68,18 +68,20 @@ $(document).ready(function($) {
     });
 
     // Download resume function
-    /*$('#resumeDownload').on('click', function(e) {
+    $('#resumeDownload').on('click', function(e) {
         e.preventDefault();
-        downloadResume();
-    });*/
+        const resumeElement = document.body;
 
-    //Download Resume Functionality
+        const opt = {
+            margin:       0.5,
+            filename:     'Susan_Achiech_Resume.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
 
-document.getElementById("resumeDownload").addEventListener("click", function() {
-    html2pdf()
-        .from(document.body)
-        .save("resume.pdf");
-});
+        html2pdf().set(opt).from(resumeElement).save();
+    });
 
 });
 
